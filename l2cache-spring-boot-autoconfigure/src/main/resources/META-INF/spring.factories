@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.atommiddleware.autoconfigure.cache.L2CacheAutoConfiguration
