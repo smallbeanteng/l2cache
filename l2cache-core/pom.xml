@@ -3,16 +3,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<artifactId>l2cache-core</artifactId>
-	<name>l2cache-core</name>
 	<parent>
 		<groupId>com.atommiddleware</groupId>
 		<artifactId>l2cache-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 		<relativePath>../l2cache-parent/pom.xml</relativePath>
 	</parent>
-
+	<packaging>jar</packaging>
+	<artifactId>l2cache-core</artifactId>
+	<name>${project.artifactId}</name>
+	<description>The l2cache core module of l2cache</description>
 	<properties>
 		<skipTests>true</skipTests>
 	</properties>
@@ -21,12 +21,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
-			 <optional>true</optional>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			 <optional>true</optional>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>

@@ -3,18 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.atommiddleware</groupId>
-	<artifactId>l2cache-sample</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>l2cache-sample</name>
-	<url>http://maven.apache.org</url>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.6.RELEASE</version>
+		<groupId>com.atommiddleware</groupId>
+		<artifactId>l2cache-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../l2cache-parent/pom.xml</relativePath>
 	</parent>
+	<artifactId>l2cache-sample</artifactId>
+	<name>${project.artifactId}</name>
+	<packaging>jar</packaging>
+	<description>The l2cache sample module of l2cache</description>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -30,19 +29,19 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.atommiddleware</groupId>
-			<artifactId>l2cache-spring-boot-starter</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.atommiddleware</groupId>
+			<artifactId>l2cache-spring-boot-starter</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
