@@ -8,7 +8,7 @@
 	<parent>
 		<artifactId>l2cache-parent</artifactId>
 		<groupId>com.atommiddleware</groupId>
-		<version>1.0-SNAPSHOT</version>
+		<version>${revision}</version>
 		<relativePath>../l2cache-parent/pom.xml</relativePath>
 	</parent>
 

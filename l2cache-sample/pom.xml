@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.atommiddleware</groupId>
 		<artifactId>l2cache-parent</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>${revision}</version>
 		<relativePath>../l2cache-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>l2cache-sample</artifactId>
