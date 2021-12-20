@@ -121,6 +121,7 @@ Interceptor usage
        validate("1246");
     // Failed data interceptor verification,Because this list is not on our list
        validate("1345");
+```
 ## L2 cache usage ##
 For example, if you want to find data, you will first find it from ehcache3. If it is not found in ehcache3, you will find it from redis. If it is not found in redis, you will execute the method, and then cache the execution results of the method into ehcache3 and redis and return the results. If there is data in the cache, the method will not be executed.
 
@@ -155,7 +156,7 @@ For example, if you want to find data, you will first find it from ehcache3. If 
     getSample("123");
     //spring.redis default redis configuration cache
     getSampleDefaultRedisConfiguration("678");
-
+```
 ## Configuration description ##
     #Whether to enable Level 2 cache + data interception. The default value is true
     com.atommiddleware.l2cache.enable=true
