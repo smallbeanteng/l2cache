@@ -96,7 +96,7 @@ public class L2CacheEhcacheRedisConfiguration {
 	@ConditionalOnMissingBean(name = L2CacheConfig.L2CACHE_CACHE_MANAGER)
 	public CacheManager cacheManager(
 			@Qualifier(L2CacheConfig.L2CACHE_LOCAL_CACHE_MANAGER) CacheManager localCacheManager,
-			@Qualifier(L2CacheConfig.L2CACHE_REMOTE_CACHE_MANAGER) RedisCacheManager remoteCacheManager) {
+			@Qualifier(L2CacheConfig.L2CACHE_REMOTE_CACHE_MANAGER) CacheManager remoteCacheManager) {
 		return new L2CacheManager(localCacheManager, remoteCacheManager);
 	}
 

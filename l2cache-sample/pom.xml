@@ -4,22 +4,22 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.atommiddleware</groupId>
-		<artifactId>l2cache-parent</artifactId>
-		<version>${revision}</version>
-		<relativePath>../l2cache-parent/pom.xml</relativePath>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.6.RELEASE</version>
 	</parent>
+	<groupId>com.atommiddleware</groupId>
 	<artifactId>l2cache-sample</artifactId>
 	<name>${project.artifactId}</name>
 	<packaging>jar</packaging>
 	<description>The l2cache sample module of l2cache</description>
 
+	<properties>
+		<guava.version>28.1-jre</guava.version>
+		<ehcache.version>3.9.7</ehcache.version>
+	</properties>
+
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -27,11 +27,38 @@
 		<dependency>
 			<groupId>com.atommiddleware</groupId>
 			<artifactId>l2cache-spring-boot-starter</artifactId>
-			<version>${project.parent.version}</version>
+			<version>1.0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>io.lettuce</groupId>
+					<artifactId>lettuce-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ehcache</groupId>

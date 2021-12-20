@@ -1,11 +1,14 @@
 package com.atommiddleware.sample;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-import io.netty.util.internal.ThreadLocalRandom;
+import com.atommiddleware.cache.core.L2CacheConfig;
+
 /**
  * Test L2 cache
  * @author ruoshui
@@ -34,9 +37,25 @@ public class TestCache {
 	 * @param id
 	 * @return
 	 */
-	public String getSampleLoacal(String id) {
-		System.out.println("Using spring Redis configuration cache");
+	public String getSampleDefaultRedisConfiguration(String id) {
+		System.out.println("Using spring Redis default configuration cache");
 		stringRedisTemplate.opsForValue().set(id, id);
-		return String.valueOf(ThreadLocalRandom.current().nextInt(1000));
+		return stringRedisTemplate.opsForValue().get(id);
+	}
+	/**
+	 * ehcache3 is used alone
+	 * @return
+	 */
+	@Cacheable(cacheManager =L2CacheConfig.L2CACHE_LOCAL_CACHE_MANAGER,cacheNames = "t123", key = "#id")
+	public String getEhcache3Cache() {
+		return "result";
+	}
+	/**
+	 * redis is used alone
+	 * @return
+	 */
+	@Cacheable(cacheManager =L2CacheConfig.L2CACHE_REMOTE_CACHE_MANAGER,cacheNames = "t123", key = "#id")
+	public String getRemoteRedisCache() {
+		return "result";
 	}
 }
