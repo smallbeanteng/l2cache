@@ -48,6 +48,10 @@ public class L2CacheEhcacheRedisConfiguration {
 
 	@Autowired
 	private L2CacheConfig l2CacheConfig;
+	
+	@Qualifier(L2CacheConfig.L2CACHE_REMOTE_REDIS_CONFIGURATION)
+	@Autowired(required = false)
+	private RedisCacheConfiguration l2CacheRemoteRedisConfiguration;
 
 	@Bean(name = L2CacheConfig.L2CACHE_REMOTE_CACHE_MANAGER)
 	@ConditionalOnMissingBean(name = L2CacheConfig.L2CACHE_REMOTE_CACHE_MANAGER)
@@ -58,9 +62,16 @@ public class L2CacheEhcacheRedisConfiguration {
 		if (l2CacheConfig.getCacheConfig().getDefaultTimeout() > 0) {
 			ttl = Duration.ofSeconds(l2CacheConfig.getCacheConfig().getDefaultTimeout());
 		}
-		RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(
-				RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-				.entryTtl(ttl);
+		RedisCacheConfiguration cacheConfiguration = null;
+		if (null != l2CacheRemoteRedisConfiguration) {
+			cacheConfiguration = l2CacheRemoteRedisConfiguration;
+		}
+		if (null == cacheConfiguration) {
+			cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+					.serializeValuesWith(RedisSerializationContext.SerializationPair
+							.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+		}
+		cacheConfiguration.entryTtl(ttl);
 		RedisCacheManager redisCacheManager = RedisCacheManager.builder(redisConnectionFactory)
 				.cacheDefaults(cacheConfiguration).build();
 		return redisCacheManager;
@@ -81,7 +92,6 @@ public class L2CacheEhcacheRedisConfiguration {
 		return cacheCacheManager;
 	}
 
-	 
 	@Bean(name = L2CacheConfig.L2CACHE_CACHE_MANAGER)
 	@ConditionalOnMissingBean(name = L2CacheConfig.L2CACHE_CACHE_MANAGER)
 	public CacheManager cacheManager(
@@ -110,7 +120,7 @@ public class L2CacheEhcacheRedisConfiguration {
 					if (null != prefixKey && prefixKey.length == 2) {
 						Cache cache = localCacheManager.getCache(prefixKey[0]);
 						if (null != cache) {
-							// 避免瞬间都删除造成太大的冲击
+							// Avoid concurrent deletion of local cache and impact on remote cache
 							scheduledHandleExpire.schedule(() -> cache.evict(prefixKey[1]),
 									ThreadLocalRandom.current().nextInt(1000), TimeUnit.MILLISECONDS);
 						}

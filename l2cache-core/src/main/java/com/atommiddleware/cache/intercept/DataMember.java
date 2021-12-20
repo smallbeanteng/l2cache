@@ -2,7 +2,7 @@ package com.atommiddleware.cache.intercept;
 
 import com.atommiddleware.cache.core.L2CacheConfig;
 /**
- * 名单数据成员
+ * List data members
  * @author ruoshui
  *
  */
@@ -13,7 +13,7 @@ public class DataMember {
 		this.key=key;
 	}
 	/**
-	 * 数据前缀
+	 * Data prefix
 	 */
 	private String prefix;
 	/**

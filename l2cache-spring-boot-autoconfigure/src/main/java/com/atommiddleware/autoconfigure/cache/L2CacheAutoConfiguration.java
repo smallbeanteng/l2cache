@@ -10,15 +10,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.atommiddleware.cache.core.L2CacheConfig;
-
+/**
+ * Configure L2 cache
+ * @author ruoshui
+ *
+ */
 @Configuration
 @ConditionalOnProperty(prefix = "com.atommiddleware.l2cache", name = "enable", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(L2CacheConfig.class)
 @Import({ L2CacheLettuceConnectionConfiguration.class, L2CacheJedisConnectionConfiguration.class,
 		L2CacheEhcacheRedisConfiguration.class, EnableCachingImportConfiguration.class,
 		L2CachingDataInterceptorConfiguration.class })
-@AutoConfigureAfter(RedisAutoConfiguration.class)
-@AutoConfigureBefore(RedisReactiveAutoConfiguration.class)
+@AutoConfigureAfter(value=RedisAutoConfiguration.class,name="org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration")
+@AutoConfigureBefore({RedisReactiveAutoConfiguration.class})
 public class L2CacheAutoConfiguration {
 
 }

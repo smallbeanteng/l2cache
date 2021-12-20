@@ -16,7 +16,11 @@ import com.atommiddleware.cache.intercept.DataInterceptor;
 import com.google.common.base.Charsets;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
-
+/**
+ * Data interceptor configuration
+ * @author ruoshui
+ *
+ */
 @Configuration
 @ConditionalOnClass(name = "com.google.common.hash.BloomFilter")
 @ConditionalOnProperty(prefix = "com.atommiddleware.l2cache.dataInterceptor",name = "enable", havingValue = "true", matchIfMissing = true)

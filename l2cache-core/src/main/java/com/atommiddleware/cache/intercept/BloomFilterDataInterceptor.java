@@ -19,9 +19,7 @@ public class BloomFilterDataInterceptor implements DataInterceptor {
 	private static final String EMPTY = "";
 
 	private int maxBlackList=L2CacheConfig.DEFAULT_MAX_BALCK_LIST;
-	private BloomFilterDataInterceptor() {
-
-	}
+	
 	public BloomFilterDataInterceptor(BloomFilter<String> bloomFilterWhite, Map<String, String> blackFilter, int maxBlackList) {
 		this.bloomFilterWhite = bloomFilterWhite;
 		this.blackFilter = blackFilter;

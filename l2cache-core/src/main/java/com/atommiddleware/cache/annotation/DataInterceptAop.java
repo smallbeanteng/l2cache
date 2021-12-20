@@ -25,7 +25,11 @@ import org.springframework.util.function.SingletonSupplier;
 import com.atommiddleware.cache.expression.CacheOperationExpressionEvaluator;
 import com.atommiddleware.cache.intercept.DataInterceptor;
 import com.atommiddleware.cache.intercept.DataMember;
-
+/**
+ * DataInterceptAop
+ * @author ruoshui
+ *
+ */
 @Aspect
 public class DataInterceptAop implements Ordered {
 
@@ -51,7 +55,7 @@ public class DataInterceptAop implements Ordered {
 	private Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
 		Class<?> targetClass = AopProxyUtils.ultimateTargetClass(joinPoint.getTarget());
 		if (joinPoint.getSignature() instanceof MethodSignature && null != dataInterceptor) {
-			// 获取method
+			// Get method
 			Method method = getSpecificMethod(((MethodSignature) joinPoint.getSignature()).getMethod(), targetClass);
 			executeDataIntercept(method, joinPoint.getArgs(), joinPoint.getTarget(), targetClass);
 		}
@@ -59,9 +63,8 @@ public class DataInterceptAop implements Ordered {
 	}
 
 	private void executeDataIntercept(Method method, Object[] args, Object target, Class<?> targetClass) {
-		// 校验条件
 		DataIntercept dataInterceptKey = AnnotationUtils.findAnnotation(method, DataIntercept.class);
-		// 校验条件
+		// Verification conditions
 		boolean isPassing = isConditionPassing(dataInterceptKey, method, args, target, targetClass);
 		if (!isPassing) {
 			throw new IllegalArgumentException("argument condition valid fail");
@@ -84,7 +87,6 @@ public class DataInterceptAop implements Ordered {
 			EvaluationContext evaluationContext = evaluator.createEvaluationContext(method, args, target, targetClass,
 					CacheOperationExpressionEvaluator.NO_RESULT);
 			AnnotatedElementKey methodCacheKey = new AnnotatedElementKey(method, targetClass);
-			// 兼容传null值得情况
 			return evaluator.condition(dataInterceptKey.condition(), methodCacheKey, evaluationContext);
 		}
 		return true;
@@ -112,12 +114,10 @@ public class DataInterceptAop implements Ordered {
 	}
 
 	private Object generateKey(String keySpEl, Method method, Object[] args, Object target, Class<?> targetClass) {
-		// 获取注解上的key属性值
 		if (StringUtils.hasText(keySpEl)) {
 			EvaluationContext evaluationContext = evaluator.createEvaluationContext(method, args, target, targetClass,
 					CacheOperationExpressionEvaluator.NO_RESULT);
 			AnnotatedElementKey methodCacheKey = new AnnotatedElementKey(method, targetClass);
-			// 兼容传null值得情况
 			Object keyValue = evaluator.key(keySpEl, methodCacheKey, evaluationContext);
 			return keyValue;
 		}
@@ -132,7 +132,11 @@ public class DataInterceptAop implements Ordered {
 	public int getOrder() {
 		return Ordered.HIGHEST_PRECEDENCE;
 	}
-
+/**
+ * DataInterceptPrefixKeySpel
+ * @author ruoshui
+ *
+ */
 	public class DataInterceptPrefixKeySpel {
 
 		public DataInterceptPrefixKeySpel(String prefix, String key) {

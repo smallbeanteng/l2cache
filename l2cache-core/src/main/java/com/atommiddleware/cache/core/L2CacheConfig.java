@@ -2,53 +2,60 @@ package com.atommiddleware.cache.core;
 
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
+/**
+ * l2cache configuration
+ * @author ruoshui
+ *
+ */
 @ConfigurationProperties(prefix = "com.atommiddleware.l2cache")
 public class L2CacheConfig {
 
 	/**
-	 * 黑名单默认限制数量
+	 * Default limit quantity of blacklist
 	 */
 	public static final int DEFAULT_MAX_BALCK_LIST = 100000;
 	/**
-	 * 布隆过滤器预期存的数据量
+	 * Expected amount of data stored in bloom filter
 	 */
 	public static final int DEFAULT_EXPECTEDINSERTIONS = 100000;
 	/**
-	 * 布隆过滤器容错率
+	 * Fault tolerance of Bloom filter
 	 */
 	public static final double DEFAULT_FPP = 0.01;
 	/**
-	 * 远程缓存默认超时时间 单位秒
+	 * Remote cache default timeout in seconds
 	 */
 	public static final int DEFAULT_REMOTE_TIMEOUT = 300;
 	/**
-	 * 缓存名与key的分隔符号
+	 * Separator between cache name and key
 	 */
 	public final static String KEY_PREFIX="::";
 	/**
-	 * 远程缓存过期消息默认处理器
+	 * Default processor for remote cache expiration messages
 	 */
 	public static final String L2CACHE_HANDLE_EXPIRE_KEY="l2CacheHandleExpireKey";
 	/**
-	 * 远程缓存
+	 * Remote cache
 	 */
 	public static final String L2CACHE_REMOTE_CACHE_MANAGER="l2CacheRemoteCacheManager";
 	/**
-	 * 本地缓存
+	 * Local cache
 	 */
 	public static final String L2CACHE_LOCAL_CACHE_MANAGER="l2CacheLocalCacheManager";
 	/**
-	 * 二级缓存对象
+	 * L2 cache object
 	 */
 	public static final String L2CACHE_CACHE_MANAGER="l2CacheManager";
 	/**
-	 * 远程连接
+	 * Remote cache connection
 	 */
 	public static final String L2CACHE_REMOTE_REDIS_CONNECTION_FACTORY="l2CacheRemoteRedisConnectionFactory";
-	
 	/**
-	 * 是否开启二级缓存+黑白名单拦截
+	 * remote cache configuration
+	 */
+	public static final String  L2CACHE_REMOTE_REDIS_CONFIGURATION="l2CacheRemoteRedisConfiguration";
+	/**
+	 * Enable L2 cache + blacklist interception
 	 */
 	private boolean enable;
 	private CacheConfig cacheConfig = new CacheConfig();
@@ -80,19 +87,19 @@ public class L2CacheConfig {
 
 	public class CacheConfig {
 		/**
-		 * 是否开启二级缓存模块 默认开启
+		 * Whether to enable the L2 cache module. It is enabled by default
 		 */
 		private boolean enable;
 		/**
-		 * 二级缓存之远程缓存超时时间
+		 * Remote cache timeout for L2 cache
 		 */
 		private int defaultTimeout;
 		/**
-		 * 是否开启redis事件监听 默认否，开启的话会默认注册监听远程缓存超时key
+		 * Enable event listening? No by default. If enabled, the remote cache timeout key will be registered by default
 		 */
 		private boolean enableRedisEvent;
 		/**
-		 * redis 配置
+		 * Redis configuration
 		 */
 		private RedisProperties redis = new RedisProperties();
 
@@ -132,19 +139,19 @@ public class L2CacheConfig {
 
 	public class DataInterceptConfig {
 		/**
-		 * 是否开启黑白名单拦截，默认开启
+		 * Whether to enable black-and-white list interception. It is enabled by default
 		 */
 		private boolean enable = true;
 		/**
-		 * 白名单布隆过滤器预期数据量
+		 * Expected data volume of white list bloom filter
 		 */
 		private int expectedInsertions;
 		/**
-		 * 白名单布隆过滤器容错率
+		 * Fault tolerance of white list bloom filter
 		 */
 		private double fpp;
 		/**
-		 *  黑名单长度限制，超出限制再添加会抛异常
+		 *  Blacklist length limit. Adding beyond the limit will throw exceptions
 		 */
 		private int maxBlackList;
 

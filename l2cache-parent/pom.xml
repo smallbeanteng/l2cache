@@ -52,7 +52,8 @@
 	<description>The l2cache parent module of l2cache</description>
 	<url>https://github.com/smallbeanteng/l2cache</url>
 	<properties>
-		<revision>1.0.5</revision>
+		<revision>1.0.8</revision>
+		<maven_flatten_version>1.2.5</maven_flatten_version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -60,6 +61,7 @@
 		<spring-boot.version>2.1.6.RELEASE</spring-boot.version>
 		<guava.version>28.1-jre</guava.version>
 		<ehcache.version>3.9.7</ehcache.version>
+		<arguments />
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -115,6 +117,42 @@
 					</execution>
 				</executions>
 			</plugin>
+			 <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                    <arguments>${arguments}</arguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${maven_flatten_version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			 <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-gpg-plugin</artifactId>

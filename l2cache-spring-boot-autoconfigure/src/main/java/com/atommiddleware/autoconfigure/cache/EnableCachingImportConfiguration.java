@@ -15,7 +15,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import com.atommiddleware.cache.core.L2CacheConfig;
-
+/**
+ * Configure the CacheManager of the L2 cache
+ * @author ruoshui
+ *
+ */
 @Configuration
 @ConditionalOnBean(name = L2CacheConfig.L2CACHE_CACHE_MANAGER)
 public class EnableCachingImportConfiguration {

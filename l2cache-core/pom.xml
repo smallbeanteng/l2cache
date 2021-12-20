@@ -13,24 +13,20 @@
 	<artifactId>l2cache-core</artifactId>
 	<name>${project.artifactId}</name>
 	<description>The l2cache core module of l2cache</description>
-	<properties>
-		<skipTests>true</skipTests>
-	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

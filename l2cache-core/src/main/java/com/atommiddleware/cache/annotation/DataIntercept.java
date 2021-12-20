@@ -17,68 +17,64 @@ import java.lang.annotation.Target;
 @Documented
 public @interface DataIntercept {
 	/**
-	 * key 支持spel表达式
-	 * 
-	 * @return spel表达式
+	 * Key supports spel expressions
+	 * @return Key supports spel expressions
 	 */
 	String key() default "";
 
 	/**
-	 * 业务前缀用于区分不同业务的数据
-	 * 
-	 * @return
+	 * The service prefix is used to distinguish the data of different services
+	 * @return The service prefix is used to distinguish the data of different services
 	 */
 	String prefix() default "";
 
 	/**
-	 * 开启自动发现key,如果key 没有值会去标注在同一个方法上的@Cacheable @CacheEvict @CachePut 上去找key 及prefix 会取cacheNames的第一个
-	 * 
-	 * @return 是否开启自动发现key 默认开启
+	 *  Turn on automatic key discovery. If the key has no value,
+	 *  it will be marked on @Cacheable @CacheEvict @CachePut on the same method to find the key and prefix, and the first cachenames will be taken
+	 * @return Turn on automatic key discovery
 	 */
 	boolean enalbleAutoDiscoveryKey() default true;
 
 	/**
-	 * 条件表达式
-	 * 
-	 * @return 条件表达式
+	 * Conditional expression
+	 * @return Conditional expression
 	 */
 	String condition() default "";
 
 	/**
-	 * 校验模式 白名单中存在，或 黑名单中不存在，或两者都要白名单存在，并且黑名单中不存在
-	 * 
-	 * @return 校验模式 默认白名单校验
+	 * The verification mode exists in the white list, does not exist in the blacklist, or both must exist in the white list and does not exist in the blacklist
+	 * @return verification mode
 	 */
 	CheckType ckType() default CheckType.WHITE;
 
 	public enum CheckType {
 		/**
-		 * 黑名单校验(在黑名单中的数据不通过)
+		 * Blacklist verification (data in the blacklist fails)
 		 */
 		BLACK,
 		/**
-		 * 白名单校验(不在白名单中的数据不通过)
+		 * White list verification (data not in the white list will not pass)
 		 */
 		WHITE,
 		/**
-		 * 黑白名单都校验(白名单通过，并且黑名单校验通过)
+		 * Both black and white lists are verified (the white list passes and the black list passes the verification)
 		 */
 		BLACK_AND_WHITE
 	}
 
 	/**
-	 * 数据种类
+	 * Data type
 	 * 
 	 * @author ruoshui
 	 *
 	 */
 	public enum DataType {
 		/**
-		 * 黑名单数据
+		 * Blacklist data
 		 */
 		BLACK,
 		/**
-		 * 白名单数据
+		 * Whitelist data
 		 */
 		WHITE
 	}
