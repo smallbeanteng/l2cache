@@ -166,7 +166,7 @@ For example, if you want to find data, you will first find it from ehcache3. If 
     com.atommiddleware.l2cache.cacheConfig.defaultTimeout=300
     #Whether to enable redis event listening. No by default. Enable the default registration to listen to the remote cache timeout key.
     #When the remote cache timeout, delete the local
-    com.atommiddleware.l2cache.cacheConfig.enableRedisEvent=true
+    com.atommiddleware.l2cache.cacheConfig.enableRedisEvent=false
     #The second level cache redis configuration is the same as spring Redis node configuration attributes are similar
     com.atommiddleware.l2cache.cacheConfig.redis.host=0.0.0.0
     com.atommiddleware.l2cache.cacheConfig.redis.port=6379
