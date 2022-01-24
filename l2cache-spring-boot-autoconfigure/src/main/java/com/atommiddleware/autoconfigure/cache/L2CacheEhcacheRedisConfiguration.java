@@ -48,7 +48,7 @@ public class L2CacheEhcacheRedisConfiguration {
 
 	@Autowired
 	private L2CacheConfig l2CacheConfig;
-	
+
 	@Qualifier(L2CacheConfig.L2CACHE_REMOTE_REDIS_CONFIGURATION)
 	@Autowired(required = false)
 	private RedisCacheConfiguration l2CacheRemoteRedisConfiguration;

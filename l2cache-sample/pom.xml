@@ -15,7 +15,7 @@
 	<description>The l2cache sample module of l2cache</description>
 
 	<properties>
-		<guava.version>28.1-jre</guava.version>
+		<guava.version>31.0.1-jre</guava.version>
 		<ehcache.version>3.9.7</ehcache.version>
 	</properties>
 

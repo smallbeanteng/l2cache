@@ -52,14 +52,14 @@
 	<description>The l2cache parent module of l2cache</description>
 	<url>https://github.com/smallbeanteng/l2cache</url>
 	<properties>
-		<revision>1.0.8</revision>
+		<revision>1.0.9</revision>
 		<maven_flatten_version>1.2.5</maven_flatten_version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring-boot.version>2.1.6.RELEASE</spring-boot.version>
-		<guava.version>28.1-jre</guava.version>
+		<guava.version>31.0.1-jre</guava.version>
 		<ehcache.version>3.9.7</ehcache.version>
 		<arguments />
 	</properties>

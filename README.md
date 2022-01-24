@@ -6,7 +6,7 @@ The following code snippet comes from l2cache sample.
 
 ## Maven dependency ##
     <properties>
-		<guava.version>28.1-jre</guava.version>
+		<guava.version>31.0.1-jre</guava.version>
 		<ehcache.version>3.9.7</ehcache.version>
 	</properties>
 
@@ -18,7 +18,7 @@ The following code snippet comes from l2cache sample.
 		<dependency>
 			<groupId>com.atommiddleware</groupId>
 			<artifactId>l2cache-spring-boot-starter</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -52,7 +52,7 @@ The following code snippet comes from l2cache sample.
     <dependency>
 			<groupId>com.atommiddleware</groupId>
 			<artifactId>l2cache-spring-boot-starter</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
