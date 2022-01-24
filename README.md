@@ -1,8 +1,11 @@
-# l2cache project #
-Ehcache3 and redis are integrated, and a data interceptor is provided to solve cache penetration. At the same time, the secondary cache greatly reduces the possibility of cache avalanche and breakdown. In addition, the redis timeout key local synchronous deletion function is provided to alleviate the problem of data consistency between redis and local cache.
+# l2cache 开源项目 #
+ehcache与redis集成，提供数据拦截器解决缓存穿透问题。同时，二级缓存大大降低了缓存雪崩和击穿的可能性。此外，还提供了redis超时键本地同步删除功能，缓解了redis与本地缓存的数据一致性问题。
 
-## Getting started ##
-The following code snippet comes from l2cache sample. 
+## 开源项目github ##
+    https://github.com/smallbeanteng/l2cache
+
+## 项目开始 ##
+具体看使用例子。 
 
 ## Maven dependency ##
     <properties>
@@ -46,8 +49,8 @@ The following code snippet comes from l2cache sample.
 			<artifactId>ehcache</artifactId>
 		</dependency>
 	</dependencies>
-## Jedis ##
- Jedis replaces the relevant with the following,Jedis replaces the relevant configuration with the following, and the configuration file is changed to the relevant configuration of jedis.
+## 使用 Jedis  ##
+ jedis将相关配置替换为以下内容，配置文件更改为jedis的相关配置即可
 
     <dependency>
 			<groupId>com.atommiddleware</groupId>
@@ -69,13 +72,13 @@ The following code snippet comes from l2cache sample.
 			<artifactId>jedis</artifactId>
 	</dependency>
 
-## ehcache ##
-Please configure the ehcache XML in the Resources folder
+## ehcache 配置 ##
+请在Resources文件夹中配置ehcache XML
 
 ## Invalid data interception ##
-Invalid data interception occurs before method execution and caching,There are three verification methods for lists: white list verification, blacklist verification, and white list + blacklist verification,The default is white list verification,If the verification fails, an exception will be thrown
+方法执行和缓存前会发生无效数据拦截，列表有三种验证方法：白名单验证、黑名单验证、白名单+黑名单验证，默认为白名单验证，如果验证失败，会抛出异常
 
-Interceptor usage
+拦截器使用如下
 
     
 	@Autowired
@@ -83,14 +86,14 @@ Interceptor usage
 
 	@PostConstruct
 	public void init() {
-		// WhiteList initialization
+		// 白名单数据初始化
 		dataInterceptor.add(new DataMember("user", "1246"), DataType.WHITE);
-		// Blacklist initialization
+		// 黑名单数据初始化
 		dataInterceptor.add(new DataMember("user", "158"), DataType.BLACK);
 	}
 
 	/**
-	 * Use @Dataintercept alone
+	 * @Dataintercept 单独使用
 	 * 
 	 * @param id
 	 */
@@ -100,10 +103,8 @@ Interceptor usage
 	}
 
 	/**
-	 * In combination with @Cacheable, it can also be combined
-	 * with @CacheEvict @CachePut. The prefix of @DataIntercept will be equal to the
-	 * cacheNames[0] parameter of the cache annotation, and the key will be equal to
-	 * the key of the cache annotation
+	 * 和 @Cacheable一起使用, 它能自动找到相关配置拦截器注解@Dataintercept的prefix与key会找到
+	 * @Cacheable、@CacheEvict、@CachePut 注解的cacheNames[0]和key,并与它们保持一致
 	 * 
 	 * @param id
 	 */
@@ -122,8 +123,8 @@ Interceptor usage
     // Failed data interceptor verification,Because this list is not on our list
        validate("1345");
 ```
-## L2 cache usage ##
-For example, if you want to find data, you will first find it from ehcache3. If it is not found in ehcache3, you will find it from redis. If it is not found in redis, you will execute the method, and then cache the execution results of the method into ehcache3 and redis and return the results. If there is data in the cache, the method will not be executed.
+## 二级缓存 使用 ##
+例如，如果要查找数据，首先从ehcache中查找数据。如果在ehcache中找不到它，将在redis中找到它。如果在redis中找不到，则执行方法，然后将方法的执行结果缓存到ehcache和redis中并返回结果。如果缓存中有数据，则不会执行该方法。
 
     	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
@@ -157,17 +158,16 @@ For example, if you want to find data, you will first find it from ehcache3. If 
     //spring.redis default redis configuration cache
     getSampleDefaultRedisConfiguration("678");
 ```
-## Configuration description ##
-    #Whether to enable Level 2 cache + data interception. The default value is true
+## 配置文件说明 ##
+    #是否开启二级缓存整个项目组件，默认为true
     com.atommiddleware.l2cache.enable=true
-    #Whether to enable the L2 cache module. The default value is true
+    #是否开启二级缓存模块，默认为true
     com.atommiddleware.l2cache.cacheConfig.enable=true
-    #The remote cache timeout of L2 cache is 300 seconds by default
+    #二级缓存的远程[redis],默认缓存时间300s
     com.atommiddleware.l2cache.cacheConfig.defaultTimeout=300
-    #Whether to enable redis event listening. No by default. Enable the default registration to listen to the remote cache timeout key.
-    #When the remote cache timeout, delete the local
+    #是否开启监听redis key 过期事件并同步删除本地key,保证redis与本地的数据相对一致性，默认false
     com.atommiddleware.l2cache.cacheConfig.enableRedisEvent=false
-    #The second level cache redis configuration is the same as spring Redis node configuration attributes are similar
+    #二级缓存的redis 配置与spring.redis 配置一样只不过前缀不同
     com.atommiddleware.l2cache.cacheConfig.redis.host=0.0.0.0
     com.atommiddleware.l2cache.cacheConfig.redis.port=6379
     com.atommiddleware.l2cache.cacheConfig.redis.password=*
@@ -176,16 +176,16 @@ For example, if you want to find data, you will first find it from ehcache3. If 
     com.atommiddleware.l2cache.cacheConfig.redis.lettuce.pool.max-idle=8
     com.atommiddleware.l2cache.cacheConfig.redis.lettuce.pool.min-idle=0
 
-    #Whether to enable the data interception module. The default value is true
+    #是否开启数据拦截模块，默认true
     com.atommiddleware.l2cache.dataInterceptor.enable=true
-    #Expected data volume of white list bloom filter, 100000 by default
+    #预期布隆过滤器数据量,默认100000
     com.atommiddleware.l2cache.dataInterceptor.expectedInsertions=100000
-    #Fault tolerance rate of white list bloom filter, default 0.01
+    #预期布隆过滤器容错率，默认0.01
     com.atommiddleware.l2cache.dataInterceptor.fpp=0.01
-    #The blacklist is limited in length. If it is added beyond the limit, exceptions will be thrown. The default value is 100000
+    #黑名单数据容量最大值，默认100000
     com.atommiddleware.l2cache.dataInterceptor.maxBlackList=100000
 
-    #spring.redis The default configuration does not interfere with L2 cache
+    #spring.redis 的配置，与二级缓存的配置互不干扰
     spring.redis.host=127.0.0.1
     spring.redis.port=6379
     spring.redis.password=
@@ -196,11 +196,11 @@ For example, if you want to find data, you will first find it from ehcache3. If 
     spring.redis.timeout=30000
 
 ## Other instructions ##
-If you want to use ehcache3 or redis alone, please configure the explicit cache manager name on the annotation
+如果你想单独使用ehcache或者redis 值需要标明要使用cacheManager就可以了
 
-    //ehcache3 cacheManager Name
+    //ehcache的cacheManager名字
     //L2CacheConfig.L2CACHE_LOCAL_CACHE_MANAGER
-    //l2cache remote redis cacheManager Name
+    //redis的cacheManager的名字
     //L2CacheConfig.L2CACHE_REMOTE_CACHE_MANAGER
 
     	@Cacheable(cacheManager =L2CacheConfig.L2CACHE_LOCAL_CACHE_MANAGER,cacheNames = "t123", key = "#id")
