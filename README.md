@@ -170,7 +170,6 @@ ehcache与redis集成，提供数据拦截器解决缓存穿透问题。同时�
     #二级缓存的redis 配置与spring.redis 配置一样只不过前缀不同
     com.atommiddleware.l2cache.cacheConfig.redis.host=0.0.0.0
     com.atommiddleware.l2cache.cacheConfig.redis.port=6379
-    com.atommiddleware.l2cache.cacheConfig.redis.password=*
     com.atommiddleware.l2cache.cacheConfig.redis.lettuce.pool.max-active=8
     com.atommiddleware.l2cache.cacheConfig.redis.lettuce.pool.max-wait=-1ms
     com.atommiddleware.l2cache.cacheConfig.redis.lettuce.pool.max-idle=8
